@@ -17,12 +17,84 @@ def decode(digits, base):
     return: int -- integer representation of number (in base 10)"""
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
+    
+    total = 0
+    index = len(digits)
+
+    if not digits or not base:
+        return print("Please provide ('number', base) number as a string and base as an integer. ")
+
     # TODO: Decode digits from binary (base 2)
-    # ...
+    if base == 2:
+        # we are given digits which is a binary string
+        # and want to return the number in base 10
+        # convert each binary number to its respective base 10 value and add them all together
+        # current 2 exponent is one more than whatever the previous exponent was!
+        for num in digits:
+            index -= 1
+            if num == '1':
+                # we want to add to our total: 2^ of whatever the index is  
+                # print(index)
+                place_value = 2**(index)
+                # print('place_value: ', place_value)
+                total += place_value
+            elif num == '0':
+                continue
+            else:
+                return print('not valid binary')
+
+        return print('Base 2 total: ', total)
+
     # TODO: Decode digits from hexadecimal (base 16)
-    # ...
+    elif base == 16:
+        for num in digits:
+            index -= 1
+            place_value = 16**(index)
+
+            value = 0
+            if num not in string.hexdigits:
+                # num needs to be a hex digit
+                return print('not a valid hexadecimal')
+
+            elif num not in string.digits:
+                # num is a letter
+                letter_value = 9
+                for letter in string.ascii_lowercase:
+                    letter_value += 1
+                    if num.lower() == letter:
+                        value = letter_value
+                        break
+            else:
+                # num is a number
+                value = int(num) 
+            # print(num, place_value, value)
+            total += place_value * value 
+
+        return print('Base 16 total: ', total)
+            
     # TODO: Decode digits from any base (2 up to 36)
-    # ...
+    else:
+        for num in digits:
+            # digits is a string, num is a char
+            index -= 1
+            place_value = base**(index)
+
+            if num not in string.digits:
+                # num is a hex number
+                letter_value = 9
+                for letter in string.ascii_lowercase:
+                    letter_value += 1
+                    if num.lower() == letter:
+                        value = letter_value
+                        break
+            else:
+                # num is a number
+                value = int(num) 
+            # print(num, place_value, value)
+            total += place_value * value 
+
+        return print(f'Base {base} total: ', total)
+
 
 
 def encode(number, base):
@@ -78,4 +150,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    decode('1001001', 2)
+    decode('A1B', 16)
+    decode('893', 36)
