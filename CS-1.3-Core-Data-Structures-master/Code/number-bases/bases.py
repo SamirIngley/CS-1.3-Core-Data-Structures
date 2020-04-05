@@ -229,18 +229,18 @@ def encode(number, base):
 
             while value < number_copy:
                 # print('degree ',degree)
-                value = 16 ** (degree)
+                value = base ** (degree)
                 degree += 1
             # print('value ', value)      
 
             if value == number_copy:
                 # we landed on it
                 places.append(degree-1)
-                number_copy -= 16**(degree-1)
+                number_copy -= base**(degree-1)
             else:
                 # we crossed it
                 places.append(degree-2)
-                number_copy -= 16 ** (degree-2) 
+                number_copy -= base**(degree-2) 
 
         #     print('degree ',degree)
         #     print(16**(degree-2))
@@ -248,25 +248,27 @@ def encode(number, base):
         #     print('places ', places)
         # print(places)
 
-        hexadecimal_string = ''
+        base_string = ''
         used = []
         for item in range(places[0] + 1):
             if item in places and item not in used:
                 count = places.count(item)
-                for value in string.hexdigits:
-                    if string.hexdigits.index(value) == count:
+                digits_and_letters = string.digits+string.ascii_uppercase
+                print(digits_and_letters)
+                for value in digits_and_letters:
+                    if digits_and_letters.index(value) == count:
                         count = value
-                hexadecimal_string += str(count.upper())
+                base_string += str(count.upper())
                 used.append(item)
             elif item in places and item in used:
                 continue
             else: 
                 # not in places
-                hexadecimal_string += '0'
+                base_string += '0'
 
-        hex_string = ''.join(reversed(hexadecimal_string))
-        print('hexadecimal: 0x', hex_string)
-        return hex_string
+        base_value_string = ''.join(reversed(base_string))
+        print('base ',base, ': ', base_value_string)
+        return base_value_string
 
 
 
@@ -312,4 +314,4 @@ if __name__ == '__main__':
     # decode('A1B', 16)
     # decode('893', 36) 
     # encode(482, 2)
-    encode(455, 16)
+    encode(455890, 14)
