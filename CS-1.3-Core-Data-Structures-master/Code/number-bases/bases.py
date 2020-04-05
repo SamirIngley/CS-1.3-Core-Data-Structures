@@ -119,35 +119,50 @@ def encode(number, base):
 
     # REPEAT
 
-    places = []
+    if base == 2:
+        places = []
 
-    number_copy = number 
-    print(number, base)
-    while number_copy > 0:
-        value = 0
-        degree = 0
+        number_copy = number 
+        print(number, base)
+        while number_copy > 0:
+            value = 0
+            degree = 0
 
-        while value < number_copy:
+            while value < number_copy:
+                print('degree ',degree)
+                value = 2 ** (degree)
+                degree += 1
+
+            print('value ', value)      
+
+            if value == number_copy:
+                # we landed on it
+                places.append(degree-1)
+                number_copy -= 2**(degree-1)
+            else:
+                # we crossed it
+                places.append(degree-2)
+                number_copy -= 2 ** (degree-2) 
+
             print('degree ',degree)
-            value = 2 ** (degree)
+            print(2**(degree-2))
+            print('new_num: ', number_copy)
+            print('places ', places)
+
+        binary_string = ''
+        degree = 0
+        for item in range(places[0] + 1):
+            print(item)
+            if item in places:
+                binary_string += '1'
+                # binary_string += 'item' + str(item) 
+            else:
+                binary_string += '0'
+                # binary_string += 'item' + str(item)
             degree += 1
-
-        print('value ', value)      
-
-        if value == number_copy:
-            # we landed on it
-            places.append(degree-1)
-            number_copy -= 2**(degree-1)
-        else:
-            # we crossed it
-            places.append(degree-2)
-            number_copy -= 2 ** (degree-2) 
-
-        print('degree ',degree)
-        print(2**(degree-2))
-        print('new_num: ', number_copy)
-        print('places ', places)
-
+        
+        bin_string = ''.join(reversed(binary_string))
+        return(print(bin_string))
 
     # TODO: Encode number in hexadecimal (base 16)
     # if base == 16:
@@ -198,4 +213,4 @@ if __name__ == '__main__':
     # decode('1001001', 2)
     # decode('A1B', 16)
     # decode('893', 36) 
-    encode(10, 2)
+    encode(482, 2)
