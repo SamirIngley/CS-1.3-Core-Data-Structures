@@ -132,7 +132,6 @@ def encode(number, base):
                 print('degree ',degree)
                 value = 2 ** (degree)
                 degree += 1
-
             print('value ', value)      
 
             if value == number_copy:
@@ -162,15 +161,114 @@ def encode(number, base):
             degree += 1
         
         bin_string = ''.join(reversed(binary_string))
-        return(print(bin_string))
+        print('binary: ', bin_string)
+        return bin_string
 
     # TODO: Encode number in hexadecimal (base 16)
-    # if base == 16:
-    #     quotient = number//16
-    #     remainder = number%16
-    #     if remainde
+    elif base == 16:
+        # index/degree of 16 times some number less than 16 = decimal value
+        places = []
+
+        number_copy = number 
+        # print(number, base)
+        while number_copy > 0:
+            value = 0
+            degree = 0
+
+            while value < number_copy:
+                # print('degree ',degree)
+                value = 16 ** (degree)
+                degree += 1
+            # print('value ', value)      
+
+            if value == number_copy:
+                # we landed on it
+                places.append(degree-1)
+                number_copy -= 16**(degree-1)
+            else:
+                # we crossed it
+                places.append(degree-2)
+                number_copy -= 16 ** (degree-2) 
+
+        #     print('degree ',degree)
+        #     print(16**(degree-2))
+        #     print('new_num: ', number_copy)
+        #     print('places ', places)
+        # print(places)
+
+        hexadecimal_string = ''
+        used = []
+        for item in range(places[0] + 1):
+            if item in places and item not in used:
+                count = places.count(item)
+                for value in string.hexdigits:
+                    if string.hexdigits.index(value) == count:
+                        count = value
+                hexadecimal_string += str(count.upper())
+                used.append(item)
+            elif item in places and item in used:
+                continue
+            else: 
+                # not in places
+                hexadecimal_string += '0'
+
+        hex_string = ''.join(reversed(hexadecimal_string))
+        print('hexadecimal: 0x', hex_string)
+        return hex_string
+
+
     # TODO: Encode number in any base (2 up to 36)
-    # ...
+    else:
+        places = []
+
+        number_copy = number 
+        # print(number, base)
+        while number_copy > 0:
+            value = 0
+            degree = 0
+
+            while value < number_copy:
+                # print('degree ',degree)
+                value = 16 ** (degree)
+                degree += 1
+            # print('value ', value)      
+
+            if value == number_copy:
+                # we landed on it
+                places.append(degree-1)
+                number_copy -= 16**(degree-1)
+            else:
+                # we crossed it
+                places.append(degree-2)
+                number_copy -= 16 ** (degree-2) 
+
+        #     print('degree ',degree)
+        #     print(16**(degree-2))
+        #     print('new_num: ', number_copy)
+        #     print('places ', places)
+        # print(places)
+
+        hexadecimal_string = ''
+        used = []
+        for item in range(places[0] + 1):
+            if item in places and item not in used:
+                count = places.count(item)
+                for value in string.hexdigits:
+                    if string.hexdigits.index(value) == count:
+                        count = value
+                hexadecimal_string += str(count.upper())
+                used.append(item)
+            elif item in places and item in used:
+                continue
+            else: 
+                # not in places
+                hexadecimal_string += '0'
+
+        hex_string = ''.join(reversed(hexadecimal_string))
+        print('hexadecimal: 0x', hex_string)
+        return hex_string
+
+
 
 
 def convert(digits, base1, base2):
@@ -213,4 +311,5 @@ if __name__ == '__main__':
     # decode('1001001', 2)
     # decode('A1B', 16)
     # decode('893', 36) 
-    encode(482, 2)
+    # encode(482, 2)
+    encode(455, 16)
