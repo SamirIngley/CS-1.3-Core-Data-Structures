@@ -74,26 +74,39 @@ def decode(digits, base):
             
     # TODO: Decode digits from any base (2 up to 36)
     else:
+        # for num in digits:
+        #     # digits is a string, num is a char
+        #     index -= 1
+        #     place_value = base**(index)
+
+        #     if num not in string.digits:
+        #         # num is a hex number
+        #         letter_value = 9
+        #         for letter in string.ascii_lowercase:
+        #             letter_value += 1
+        #             if num.lower() == letter:
+        #                 value = letter_value
+        #                 break
+        #     else:
+        #         # num is a number
+        #         value = int(num) 
+        #     # print(num, place_value, value)
+        #     total += place_value * value 
+
+        prev = None
+        new_num=0
         for num in digits:
-            # digits is a string, num is a char
-            index -= 1
-            place_value = base**(index)
-
-            if num not in string.digits:
-                # num is a hex number
-                letter_value = 9
-                for letter in string.ascii_lowercase:
-                    letter_value += 1
-                    if num.lower() == letter:
-                        value = letter_value
-                        break
+            if prev == None:
+                prev = int(num)
             else:
-                # num is a number
-                value = int(num) 
-            # print(num, place_value, value)
-            total += place_value * value 
+                new_num = prev * base + int(num)
+                prev = new_num
+                # print(num, new_num)
+     
+        # print('ten num', new_num)
 
-        return print(f'Base {base} total: ', total)
+        # print(digits, base)
+        return print(f'Base {base} total: ', new_num)
 
 
 
@@ -289,7 +302,60 @@ def convert(digits, base1, base2):
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
     # ...
     # TODO: Convert digits from any base to any base (2 up to 36)
-    # ...
+    # take the base, keep adding to the degree until we figure out the number in decimal. 
+    
+    # any number to base 10:
+    prev = None
+    new_num=0
+    for num in digits:
+        if prev == None:
+            prev = int(num)
+        else:
+            new_num = prev * base1 + int(num)
+            prev = new_num
+    # base 10 number to any base
+    places = []
+    number_copy = new_num 
+    # print(number, base)
+    while number_copy > 0:
+        value = 0
+        degree = 0
+
+        while value < number_copy:
+            # print('degree ',degree)
+            value = base2 ** (degree)
+            degree += 1
+        # print('value ', value)      
+
+        if value == number_copy:
+            # we landed on it
+            places.append(degree-1)
+            number_copy -= base2**(degree-1)
+        else:
+            # we crossed it
+            places.append(degree-2)
+            number_copy -= base2**(degree-2)
+    base_string = ''
+    used = []
+    for item in range(places[0] + 1):
+        if item in places and item not in used:
+            count = places.count(item)
+            digits_and_letters = string.digits+string.ascii_uppercase
+            # print(digits_and_letters)
+            for value in digits_and_letters:
+                if digits_and_letters.index(value) == count:
+                    count = value
+            base_string += str(count.upper())
+            used.append(item)
+        elif item in places and item in used:
+            continue
+        else: 
+            # not in places
+            base_string += '0'
+
+    base_value_string = ''.join(reversed(base_string))
+    print(f'From {digits} in base {base1} to base {base2}: {base_value_string}')
+    return base_value_string
 
 
 def main():
@@ -314,4 +380,5 @@ if __name__ == '__main__':
     # decode('A1B', 16)
     # decode('893', 36) 
     # encode(482, 2)
-    encode(455890, 14)
+    # encode(455890, 14)
+    convert('123456', 7, 5)
