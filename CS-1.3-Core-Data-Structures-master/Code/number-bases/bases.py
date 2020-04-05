@@ -107,9 +107,53 @@ def encode(number, base):
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
     # TODO: Encode number in binary (base 2)
-    # ...
+    # number base 10 integer into base 2 integer. Return a string
+    
+    # 2 ** What_number is > 287
+
+    # while number < 287:
+    #     increase the degree of 2 by 1
+    
+    # record the previous degree 
+    # subract 2 to the power of that degree from the number
+
+    # REPEAT
+
+    places = []
+
+    number_copy = number 
+    print(number, base)
+    while number_copy > 0:
+        value = 0
+        degree = 0
+
+        while value < number_copy:
+            print('degree ',degree)
+            value = 2 ** (degree)
+            degree += 1
+
+        print('value ', value)      
+
+        if value == number_copy:
+            # we landed on it
+            places.append(degree-1)
+            number_copy -= 2**(degree-1)
+        else:
+            # we crossed it
+            places.append(degree-2)
+            number_copy -= 2 ** (degree-2) 
+
+        print('degree ',degree)
+        print(2**(degree-2))
+        print('new_num: ', number_copy)
+        print('places ', places)
+
+
     # TODO: Encode number in hexadecimal (base 16)
-    # ...
+    # if base == 16:
+    #     quotient = number//16
+    #     remainder = number%16
+    #     if remainde
     # TODO: Encode number in any base (2 up to 36)
     # ...
 
@@ -151,6 +195,7 @@ def main():
 
 if __name__ == '__main__':
     # main()
-    decode('1001001', 2)
-    decode('A1B', 16)
-    decode('893', 36)
+    # decode('1001001', 2)
+    # decode('A1B', 16)
+    # decode('893', 36) 
+    encode(10, 2)
