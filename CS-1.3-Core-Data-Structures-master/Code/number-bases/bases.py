@@ -40,7 +40,8 @@ def decode(digits, base):
             elif num == '0':
                 continue
             else:
-                return print('not valid binary')
+                print('not valid binary')
+                return 
 
         return total
 
@@ -53,7 +54,8 @@ def decode(digits, base):
             value = 0
             if num not in string.hexdigits:
                 # num needs to be a hex digit
-                return print('not a valid hexadecimal')
+                print('not a valid hexadecimal')
+                return 
 
             elif num not in string.digits:
                 # num is a letter
@@ -280,7 +282,7 @@ def encode(number, base):
                 base_string += '0'
 
         base_value_string = ''.join(reversed(base_string))
-        print('base ',base, ': ', base_value_string)
+        # print('base ',base, ': ', base_value_string)
         return base_value_string
 
 
@@ -362,7 +364,7 @@ def convert(digits, base1, base2):
             base_string += '0'
 
     base_value_string = ''.join(reversed(base_string))
-    print(f'From {digits} in base {base1} to base {base2}: {base_value_string}')
+    # print(f'From {digits} in base {base1} to base {base2}: {base_value_string}')
     return base_value_string
 
 
@@ -383,12 +385,20 @@ def main():
 
 
 if __name__ == '__main__':
-    # main()
+
+    # num_in_base = input('What is the number you want converted? .. ')
+    # base = input('What base is the number you want converted? .. ')
+    # convert_to = input('And what is the base you want to convert to? .. ')
+
+    # convert(str(num_in_base), int(base), int(convert_to))
+
+    main()
+
     # decode('1001001', 2)
-    decode('A1B', 16)
-    decode('893', 36)
-    decode('5', 10) 
-    decode('101101', 2)
+    # decode('A1B', 16)
+    # decode('893', 36)
+    # decode('5', 10) 
+    # decode('101101', 2)
     # encode(482, 2)
     # encode(455890, 14)
     # convert('123456', 7, 5)
