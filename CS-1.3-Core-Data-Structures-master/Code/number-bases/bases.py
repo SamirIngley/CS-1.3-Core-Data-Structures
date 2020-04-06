@@ -22,8 +22,7 @@ def decode(digits, base):
     index = len(digits)
 
     if not digits or not base:
-        return print("Please provide ('number', base) number as a string and base as an integer. ")
-
+        return ValueError('Not a good number')
     # TODO: Decode digits from binary (base 2)
     if base == 2:
         # we are given digits which is a binary string
@@ -43,7 +42,7 @@ def decode(digits, base):
             else:
                 return print('not valid binary')
 
-        return print('Base 2 total: ', total)
+        return total
 
     # TODO: Decode digits from hexadecimal (base 16)
     elif base == 16:
@@ -70,7 +69,7 @@ def decode(digits, base):
             # print(num, place_value, value)
             total += place_value * value 
 
-        return print('Base 16 total: ', total)
+        return total
             
     # TODO: Decode digits from any base (2 up to 36)
     else:
@@ -102,11 +101,12 @@ def decode(digits, base):
                 new_num = prev * base + int(num)
                 prev = new_num
                 # print(num, new_num)
-     
+        if new_num == 0:
+            new_num = int(prev)
         # print('ten num', new_num)
 
         # print(digits, base)
-        return print(f'Base {base} total: ', new_num)
+        return new_num
 
 
 
@@ -136,16 +136,16 @@ def encode(number, base):
         places = []
 
         number_copy = number 
-        print(number, base)
+        # print(number, base)
         while number_copy > 0:
             value = 0
             degree = 0
 
             while value < number_copy:
-                print('degree ',degree)
+                # print('degree ',degree)
                 value = 2 ** (degree)
                 degree += 1
-            print('value ', value)      
+            # print('value ', value)      
 
             if value == number_copy:
                 # we landed on it
@@ -156,15 +156,15 @@ def encode(number, base):
                 places.append(degree-2)
                 number_copy -= 2 ** (degree-2) 
 
-            print('degree ',degree)
-            print(2**(degree-2))
-            print('new_num: ', number_copy)
-            print('places ', places)
+            # print('degree ',degree)
+            # print(2**(degree-2))
+            # print('new_num: ', number_copy)
+            # print('places ', places)
 
         binary_string = ''
         degree = 0
         for item in range(places[0] + 1):
-            print(item)
+            # print(item)
             if item in places:
                 binary_string += '1'
                 # binary_string += 'item' + str(item) 
@@ -174,7 +174,7 @@ def encode(number, base):
             degree += 1
         
         bin_string = ''.join(reversed(binary_string))
-        print('binary: ', bin_string)
+        # print('binary: ', bin_string)
         return bin_string
 
     # TODO: Encode number in hexadecimal (base 16)
@@ -217,7 +217,7 @@ def encode(number, base):
                 for value in string.hexdigits:
                     if string.hexdigits.index(value) == count:
                         count = value
-                hexadecimal_string += str(count.upper())
+                hexadecimal_string += str(count.lower())
                 used.append(item)
             elif item in places and item in used:
                 continue
@@ -226,7 +226,7 @@ def encode(number, base):
                 hexadecimal_string += '0'
 
         hex_string = ''.join(reversed(hexadecimal_string))
-        print('hexadecimal: 0x', hex_string)
+        # print('hexadecimal: 0x', hex_string)
         return hex_string
 
 
@@ -267,11 +267,11 @@ def encode(number, base):
             if item in places and item not in used:
                 count = places.count(item)
                 digits_and_letters = string.digits+string.ascii_uppercase
-                print(digits_and_letters)
+                # print(digits_and_letters)
                 for value in digits_and_letters:
                     if digits_and_letters.index(value) == count:
                         count = value
-                base_string += str(count.upper())
+                base_string += str(count.lower())
                 used.append(item)
             elif item in places and item in used:
                 continue
@@ -308,11 +308,19 @@ def convert(digits, base1, base2):
     prev = None
     new_num=0
     for num in digits:
+        if num in string.hexdigits and num not in string.digits:
+            index = 9
+            for item in string.ascii_lowercase:
+                index += 1
+                if item == num:
+                    num = index
         if prev == None:
             prev = int(num)
         else:
             new_num = prev * base1 + int(num)
             prev = new_num
+    if new_num == 0:
+        new_num = int(prev)
     # base 10 number to any base
     places = []
     number_copy = new_num 
@@ -345,7 +353,7 @@ def convert(digits, base1, base2):
             for value in digits_and_letters:
                 if digits_and_letters.index(value) == count:
                     count = value
-            base_string += str(count.upper())
+            base_string += str(count.lower())
             used.append(item)
         elif item in places and item in used:
             continue
@@ -377,8 +385,11 @@ def main():
 if __name__ == '__main__':
     # main()
     # decode('1001001', 2)
-    # decode('A1B', 16)
-    # decode('893', 36) 
+    decode('A1B', 16)
+    decode('893', 36)
+    decode('5', 10) 
+    decode('101101', 2)
     # encode(482, 2)
     # encode(455890, 14)
-    convert('123456', 7, 5)
+    # convert('123456', 7, 5)
+    # convert('1010', 2, 16)
