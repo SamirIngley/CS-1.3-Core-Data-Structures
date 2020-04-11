@@ -1,4 +1,5 @@
 #!python
+from math import floor
 
 def linear_search(array, item):
     """return the first index of item in array or None if item is not found"""
@@ -38,7 +39,28 @@ def binary_search(array, item):
 
 def binary_search_iterative(array, item):
     # TODO: implement binary search iteratively here
-    pass
+    # ASSUMING ARRAY IS SORTED
+    # if the number exists it's between the first and last nums
+    found = False
+    new_array = array
+    while not found:
+        mid_index = floor(len(new_array/2))
+        print(mid_index)
+        index = 0
+        
+        if item[0] == array[mid_index][0]:
+            found = True
+            return mid_index 
+
+        elif item[0] > array[mid_index][0]:
+            new_array = array[mid_index:]
+        elif item[0] < array[mid_index][0]:
+            new_array = array[:mid_index]
+        
+        elif len(new_array) == 1:
+            return None
+            
+            
     # once implemented, change binary_search to call binary_search_iterative
     # to verify that your iterative implementation passes all tests
 
