@@ -40,51 +40,11 @@ def binary_search(array, item):
 def binary_search_iterative(array, item):
     # TODO: implement binary search iteratively here
     # ASSUMING ARRAY IS SORTED
-    # if the number exists it's between the first and last nums
-    # found = False
-    # new_array = array
-    # mid_index = int(floor(len(new_array)/2)-1)
-
-    # print(array)
-    # print(item, item[0])
-    # print(mid_index)
-    # print(array[mid_index])
-    # print(array[mid_index][0])
-
-    # while not found:
-        
-    #     mid_index = int(floor(len(new_array)/2)-1)
-    #     print('middex ', mid_index)
-
-
-    #     if item == new_array[mid_index]:
-    #         found = True
-    #         print('found: ', item, new_array[mid_index])
-    #         return mid_index 
-
-    #     elif item[0] > new_array[mid_index][0]:
-    #         new_array = new_array[mid_index:]
-    #         print('item: ', item, item[0])
-    #         print('array loc: ', new_array[mid_index])
-    #         print('item is greater so.. ', new_array)
-
-    #     elif item[0] < new_array[mid_index][0]:
-    #         new_array = new_array[:mid_index]
-    #         print('item: ', item, item[0])
-    #         print('array loc: ', new_array[mid_index])
-    #         print('item is less so.. ', new_array)
-        
-    #     elif len(new_array) == 1:
-    #         found = True
-    #         print('Not found: ', item, new_array[mid_index])
-    #         return None
-    
 
     new_array = array
     found = False
     may_exist = True
     letter = 0
-    index = None
 
     while not found and may_exist:
 
