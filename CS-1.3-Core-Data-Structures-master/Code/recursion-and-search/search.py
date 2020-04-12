@@ -77,23 +77,47 @@ def binary_search_iterative(array, item):
             print('item is less')
             print(new_array)
 
-
-
-
-
-
-
-
-
-
-            
     # once implemented, change binary_search to call binary_search_iterative
     # to verify that your iterative implementation passes all tests
 
 
 def binary_search_recursive(array, item, left=None, right=None):
     # TODO: implement binary search recursively here
-    pass
+    letter = 0
+
+    if not left and not right:
+        left = 0
+        right = len(array)-1
+
+    middle = int(floor((right-left)/2))
+    if item == array[middle]:
+        print('found: ', item, array[middle], right, left)
+        return array.index(middle)
+    elif right-left == 1:
+        print('dne')
+        return 
+    
+    while item[letter] == array[middle][letter]:
+        letter += 1
+        print('letter up')
+
+    if item[letter] > array[middle][letter]:
+        print(item, item[letter], 'item is greater than ', array[middle], array[middle][letter])
+        left = middle
+        print('left = middle', middle)
+        binary_search_recursive(array, item, left, right)
+    elif item[letter] < array[middle][letter]:
+        print(item, item[letter], 'item is less than ', array[middle], array[middle][letter])
+        right = middle
+        print('right = middle', middle)
+        binary_search_recursive(array, item, left, right) 
+        
+
+
+
+
+
+
     # once implemented, change binary_search to call binary_search_recursive
     # to verify that your recursive implementation passes all tests
 
