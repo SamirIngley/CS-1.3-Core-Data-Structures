@@ -1,5 +1,5 @@
 #!python
-from math import floor
+from math import floor, ceil
 
 def linear_search(array, item):
     """return the first index of item in array or None if item is not found"""
@@ -33,7 +33,7 @@ def binary_search(array, item):
     """return the index of item in sorted array or None if item is not found"""
     # implement binary_search_iterative and binary_search_recursive below, then
     # change this to call your implementation to verify it passes all tests
-    return binary_search_iterative(array, item)
+    return binary_search_recursive(array, item)
     # return binary_search_recursive(array, item)
 
 
@@ -89,14 +89,16 @@ def binary_search_recursive(array, item, left=None, right=None):
         left = 0
         right = len(array)-1
 
-    middle = int(floor((right-left)/2))
+    middle = left + int(ceil((right-left)/2))
     if item == array[middle]:
+        print('middle ', middle)
         print('found: ', item, array[middle], right, left)
-        return array.index(middle)
-    elif right-left == 1:
+        return array.index(array[middle])
+    elif right-left == 0:
         print('dne')
         return 
     
+    print(array[middle])
     while item[letter] == array[middle][letter]:
         letter += 1
         print('letter up')
@@ -105,11 +107,13 @@ def binary_search_recursive(array, item, left=None, right=None):
         print(item, item[letter], 'item is greater than ', array[middle], array[middle][letter])
         left = middle
         print('left = middle', middle)
+        print('right ', right)
         binary_search_recursive(array, item, left, right)
     elif item[letter] < array[middle][letter]:
         print(item, item[letter], 'item is less than ', array[middle], array[middle][letter])
         right = middle
         print('right = middle', middle)
+        print('left ', left)
         binary_search_recursive(array, item, left, right) 
         
 
@@ -121,4 +125,4 @@ def binary_search_recursive(array, item, left=None, right=None):
     # once implemented, change binary_search to call binary_search_recursive
     # to verify that your recursive implementation passes all tests
 
-# binary_search([0], 0)
+binary_search(['alex', 'banana', 'cab', 'top', 'weird', 'zoo'], 'zoo')
