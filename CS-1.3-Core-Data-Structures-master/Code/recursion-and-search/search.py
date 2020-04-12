@@ -89,14 +89,26 @@ def binary_search_recursive(array, item, left=None, right=None):
         left = 0
         right = len(array)-1
 
-    middle = left + int(ceil((right-left)/2))
+    middle = left + int(ceil((right-left)/2)) # difference/2 + bottom = middle
+    
+    # print(left, int(ceil((right-left)/2)), 'right ', right, 'left ', left, 'subtract ', right-left, 'subtract/2 ', (right-left)/2)
+    print('between ', array[left], array [right])
     if item == array[middle]:
         print('middle ', middle)
-        print('found: ', item, array[middle], right, left)
-        return array.index(array[middle])
+        print('found: ', item, array[middle], left, right)
+        print(middle)
+        return middle
     elif right-left == 0:
         print('dne')
-        return 
+        return None
+    elif right-left == 1:  # we do this because if we try to move a side over when only two items remain with our current strategy.. it breaks when we only have two items left.. we can't just go to one since we increment the left and right based on the middle. 
+        if item == array[left]:
+            print('hit me')
+            print(left)
+            return int(left)
+        else:
+            print('dne')
+            return None
     
     print(array[middle])
     while item[letter] == array[middle][letter]:
@@ -125,4 +137,5 @@ def binary_search_recursive(array, item, left=None, right=None):
     # once implemented, change binary_search to call binary_search_recursive
     # to verify that your recursive implementation passes all tests
 
-binary_search(['alex', 'banana', 'cab', 'top', 'weird', 'zoo'], 'zoo')
+# binary_search(['alex', 'banana', 'cab', 'top', 'weird', 'zoo'], 'top')
+binary_search(['Alex', 'Brian', 'Julia', 'Kojin', 'Nabil', 'Nick', 'Winnie'], 'Alex')
