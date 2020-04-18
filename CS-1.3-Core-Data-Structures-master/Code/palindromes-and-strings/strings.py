@@ -1,12 +1,45 @@
 #!python
 
-def contains(text, pattern):
+def contains(text, pattern, index=0):
     """Return a boolean indicating whether pattern occurs in text."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement contains here (iteratively and/or recursively)
 
+    found = False
+    char_match = ''
 
+    for char in text:
+
+        if found:
+            break
+
+        if index >= len(pattern):
+                # reached the end and the characters all matched
+                print('Found - matches:', char_match)
+                found = True
+        
+        elif char == pattern[index]:
+            # if matches the first letter in the pattern 
+            
+            # go to the next letter in the pattern, and the next char in the next loop 
+            print('Match - char:', char, 'pattern:', pattern[index])
+            index += 1
+            char_match += char
+            print('char string: ', char_match)
+        else:
+            index = 0
+            continue
+    
+    if not found:
+        return False
+    else: 
+        return True
+        
+ 
+    
+
+        
 def find_index(text, pattern):
     """Return the starting index of the first occurrence of pattern in text,
     or None if not found."""
