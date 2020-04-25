@@ -31,7 +31,7 @@ class LinkedStack(object):
 
     def push(self, item):
         """Insert the given item on the top of this stack.
-        Running time: O(???) – Why? [TODO]"""
+        Runtime: O(1) bc we add to the top and we know where that is at all times [TODO]"""
         # TODO: Push given item
         self.list.prepend(item)
 
@@ -48,7 +48,7 @@ class LinkedStack(object):
     def pop(self):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) Because we know where the top of the stack is always [TODO]"""
         # TODO: Remove and return top item, if any
         node = self.list.get_at_index(0)
         self.list.delete(self.list.get_at_index(0))
@@ -83,7 +83,7 @@ class ArrayStack(object):
 
     def push(self, item):
         """Insert the given item on the top of this stack.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) Because we always know where the top of the stack is [TODO]"""
         # TODO: Insert given item
         self.list.appendleft(item)
 
@@ -92,17 +92,23 @@ class ArrayStack(object):
         """Return the item on the top of this stack without removing it,
         or None if this stack is empty."""
         # TODO: Return top item, if any
-        return self.list[0]
+        if len(self.list) == 0:
+            return None
+        else:
+            return self.list[0]
 
     def pop(self):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) – We know where the top of the stack is [TODO]"""
         # TODO: Remove and return top item, if any
-        return self.list.popleft()
+        if len(self.list) == 0:
+            raise ValueError('List index out of range.')
+        else:
+            return self.list.popleft()
 
 
 # Implement LinkedStack and ArrayStack above, then change the assignment below
 # to use each of your Stack implementations to verify they each pass all tests
-Stack = LinkedStack
-# Stack = ArrayStack
+# Stack = LinkedStack
+Stack = ArrayStack
