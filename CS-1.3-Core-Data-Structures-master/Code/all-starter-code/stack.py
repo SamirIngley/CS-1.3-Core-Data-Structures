@@ -106,6 +106,16 @@ class ArrayStack(object):
             raise ValueError('List index out of range.')
         else:
             return self.list.popleft()
+    
+    def dequeue(self):
+        if len(self.list) == 0:
+            raise ValueError('List index out of range.')
+        else:
+            return self.list.pop()
+
+
+    def enqueue(self, item):
+        self.list.append(item)
 
 
 # Implement LinkedStack and ArrayStack above, then change the assignment below

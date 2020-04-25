@@ -66,7 +66,31 @@ class StackTest(unittest.TestCase):
         assert s.is_empty() is True
         with self.assertRaises(ValueError):
             s.pop()
-
+    
+    def test_dequeue(self):
+        s = Stack(['A', 'B', 'C'])
+        assert s.dequeue() == 'A'
+        assert s.length() == 2
+        assert s.dequeue() == 'B'
+        assert s.length() == 1
+        assert s.dequeue() == 'C'
+        assert s.length() == 0
+        assert s.is_empty() is True
+        with self.assertRaises(ValueError):
+            s.dequeue()
+    
+    def enqueue(self):
+            s = Stack()
+            s.enqueue('A')
+            assert s.peek() == 'A'
+            assert s.length() == 1
+            s.enqueue('B')
+            assert s.peek() == 'A'
+            assert s.length() == 2
+            s.enqueue('C')
+            assert s.peek() == 'A'
+            assert s.length() == 3
+            assert s.is_empty() is False
 
 if __name__ == '__main__':
     unittest.main()
