@@ -73,10 +73,6 @@ class HashTableTest(unittest.TestCase):
         ht.set('I', 1)
         assert ht.size == 1
         assert len(ht.buckets) == 2
-
-        print(ht.size, len(ht.buckets))
-        print((ht.size) / (len(ht.buckets)))
-        
         assert ht.load_factor() == 0.5
         ht.set('V', 5)  # Should trigger resize
         assert ht.size == 2
