@@ -30,6 +30,7 @@ class BinaryTreeNode(object):
         # TODO: Check if left child has a value and if so calculate its height
         left = -1 if self.left is None else self.left.height()
         right = -1 if self.right is None else self.right.height()
+        # Recursively travels left side then right, returns 
         return max(left, right) +1
 
 
@@ -77,31 +78,26 @@ class BinarySearchTree(object):
         # Find a node with the given item, if any
         node = self._find_node_recursive(item, self.root)
         # TODO: Return the node's data if found, or None
-        return node.data if ... else None
+        return node.data if node is not None else None
 
     def insert(self, item):
         """Insert the given item in order into this binary search tree.
         TODO: Best case running time: ??? under what conditions?
         TODO: Worst case running time: ??? under what conditions?"""
         # Handle the case where the tree is empty
+        node = BinaryTreeNode(item)
         if self.is_empty():
-            # TODO: Create a new root node
-            self.root = ...
-            # TODO: Increase the tree size
-            self.size ...
+            self.root = node
+            self.size += 1
             return
         # Find the parent node of where the given item should be inserted
         parent = self._find_parent_node_recursive(item, self.root)
         # TODO: Check if the given item should be inserted left of parent node
-        if ...:
-            # TODO: Create a new node and set the parent's left child
-            parent.left = ...
-        # TODO: Check if the given item should be inserted right of parent node
-        elif ...:
-            # TODO: Create a new node and set the parent's right child
-            parent.right = ...
-        # TODO: Increase the tree size
-        self.size ...
+        if node.data <= parent.data:
+            parent.left = node
+        else:
+            parent.right = node
+        self.size += 1
 
     def _find_node_iterative(self, item):
         """Return the node containing the given item in this binary search tree,
@@ -113,19 +109,15 @@ class BinarySearchTree(object):
         node = self.root
         # Loop until we descend past the closest leaf node
         while node is not None:
-            # TODO: Check if the given item matches the node's data
-            if ...:
-                # Return the found node
+
+            if item == node.data:
                 return node
-            # TODO: Check if the given item is less than the node's data
-            elif ...:
-                # TODO: Descend to the node's left child
-                node = ...
-            # TODO: Check if the given item is greater than the node's data
-            elif ...:
-                # TODO: Descend to the node's right child
-                node = ...
-        # Not found
+
+            elif item < node.data:
+                node = node.left
+            else:
+                node = node.right
+
         return None
 
     def _find_node_recursive(self, item, node):
@@ -138,18 +130,13 @@ class BinarySearchTree(object):
         if node is None:
             # Not found (base case)
             return None
-        # TODO: Check if the given item matches the node's data
-        elif ...:
+        if item == node.data:
             # Return the found node
             return node
-        # TODO: Check if the given item is less than the node's data
-        elif ...:
-            # TODO: Recursively descend to the node's left child, if it exists
-            return ...
-        # TODO: Check if the given item is greater than the node's data
-        elif ...:
-            # TODO: Recursively descend to the node's right child, if it exists
-            return ...
+        elif item < node.data:
+            return self._find_node_recursive(item, node.left)
+            
+        return self._find_node_recursive(item, node.right)
 
     def _find_parent_node_iterative(self, item):
         """Return the parent node of the node containing the given item
